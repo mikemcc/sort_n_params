@@ -8,20 +8,24 @@ class Sortable
     @sort_params = { order: [], filter: @params[:filter] }
   end
 
-  def call
+  def call(overwrite: false)
     add_previous_order unless @params[:order].nil?
     if @sort_params[:order].include?(@column)
       revert_order
       set_clear_params
       set_position
     else
-      add_order
-      reset_clear_params
+      if overwrite
+        overwrite_order
+        reset_clear_params
+      else
+        add_order
+        reset_clear_params
+      end
     end
 
     build_data
   end
-
 
   private
 
@@ -43,6 +47,12 @@ class Sortable
   end
 
   def add_order
+    @sort_params[:order] << @column
+    @sort_params[:order] << DEFAULT_ORDER
+  end
+
+  def overwrite_order
+    @sort_params[:order] = []
     @sort_params[:order] << @column
     @sort_params[:order] << DEFAULT_ORDER
   end
