@@ -5,7 +5,7 @@ class Sortable
     @column = column
     @title = title || column.titleize
     @params = params
-    @sort_params = { order: [], filter: @params[:filter] }
+    @sort_params = { order: [], filter: @params[:filter], per_page: @params[:per_page], page: @params[:page]}
   end
 
   def call(overwrite: false)

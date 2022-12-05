@@ -4,6 +4,8 @@ module SortNParams
       aux_params = {}
       aux_params[:order] = parse_param(params[:order])
       aux_params[:filter] = parse_param(params[:filter])
+      aux_params[:per_page] = parse_param(params[:per_page])
+      aux_params[:page] = parse_param(params[:page])
 
       data = Sortable.new(column, title, aux_params).call(overwrite: false)
       capture do
